@@ -1,6 +1,6 @@
 {
-    "name": "katzgrau/klogger",
-    "version": "1.0.0",
+    "name": "paleg/klogger",
+    "version": "1.0.1",
     "description": "A Simple Logging Class",
     "keywords": ["logging"],
     "require": {
