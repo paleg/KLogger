@@ -70,15 +70,24 @@ class Logger extends AbstractLogger
     private $defaultPermissions = 0777;
 
     /**
+     * Prefix to add to each log message
+     * @var string
+     */
+    private $logPrefix = ' ';
+
+    /**
      * Class constructor
      *
      * @param string  $logDirectory       File path to the logging directory
      * @param integer $logLevelThreshold  The LogLevel Threshold
      * @return void
      */
-    public function __construct($logDirectory, $logLevelThreshold = LogLevel::DEBUG)
+    public function __construct($logDirectory, $logLevelThreshold = LogLevel::DEBUG, $prefix = '')
     {
         $this->logLevelThreshold = $logLevelThreshold;
+        if ( ! empty($prefix)) {
+            $this->logPrefix = ' [' . $prefix . '] ';
+        }
 
         $logDirectory = rtrim($logDirectory, '\\/');
         if (! file_exists($logDirectory)) {
@@ -172,7 +181,7 @@ class Logger extends AbstractLogger
         if (! empty($context)) {
             $message .= PHP_EOL.$this->indent($this->contextToString($context));
         }
-        return "[{$this->getTimestamp()}] [{$level}] {$message}".PHP_EOL;
+        return "[{$this->getTimestamp()}]{$this->logPrefix}[{$level}] {$message}".PHP_EOL;
     }
 
     /**
